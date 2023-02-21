@@ -1,9 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import { Counter } from "../../../features/counter/Counter";
+import "./App.css";
+import { Tasks } from "../../../features/tasks/components/tasks/tasks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 function App() {
+  const tasks = useSelector((state: RootState) => state.tasks);
   return (
     <div className="App">
       <header className="App-header">
@@ -12,6 +16,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <p>Tareas disponibles {tasks.length}</p>
         <span>
           <span>Learn </span>
           <a
@@ -51,6 +56,7 @@ function App() {
           </a>
         </span>
       </header>
+      <Tasks></Tasks>
     </div>
   );
 }
