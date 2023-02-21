@@ -19,6 +19,8 @@ export class TaskApiRepo {
 
   async loadTasks(): Promise<TaskStructure[]> {
     const resp = await fetch(this.url);
+    if (!resp.ok)
+      throw new Error("Error Http: " + resp.status + ". " + resp.statusText);
     const data = (await resp.json()) as TaskStructure[];
     return data;
   }
@@ -26,6 +28,8 @@ export class TaskApiRepo {
   async getTask(id: TaskStructure["id"]): Promise<TaskStructure> {
     const url = this.url + "/" + id;
     const resp = await fetch(url);
+    if (!resp.ok)
+      throw new Error("Error Http: " + resp.status + ". " + resp.statusText);
     const data = (await resp.json()) as TaskStructure;
     return data;
   }
@@ -38,7 +42,10 @@ export class TaskApiRepo {
         "Content-type": "application/json",
       },
     });
+    if (!resp.ok)
+      throw new Error("Error Http: " + resp.status + ". " + resp.statusText);
     const data = (await resp.json()) as TaskStructure;
+
     return data;
   }
 
@@ -51,6 +58,8 @@ export class TaskApiRepo {
         "Content-type": "application/json",
       },
     });
+    if (!resp.ok)
+      throw new Error("Error Http: " + resp.status + ". " + resp.statusText);
     const data = (await resp.json()) as TaskStructure;
     return data;
   }
@@ -60,6 +69,7 @@ export class TaskApiRepo {
     const resp = await fetch(url, {
       method: "DELETE",
     });
-    if (!resp.ok) throw new Error("Delete not possible");
+    if (!resp.ok)
+      throw new Error("Error Http: " + resp.status + ". " + resp.statusText);
   }
 }
